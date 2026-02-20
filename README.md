@@ -1,1 +1,1 @@
-# Video-Neural-Style-Transfer
+# Video Neural Style Transfer
