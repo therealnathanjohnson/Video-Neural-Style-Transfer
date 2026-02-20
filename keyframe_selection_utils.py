@@ -82,6 +82,8 @@ if __name__ == "__main__":
     # each displayed frame, in which case it may be easier to set `plt_show` to false, and then use `save_selected` to save the frames
     # to a folder where they can easily be viewed individually.
 
+    #It is likely that `display_frames` will need to be called multiple times to look at different frames, without running out of memory/storage
+
     #Regardless, once frames have been selected, `save_selected` must be used and the frames must be stored in a folder so later programs
     # can access them
 
