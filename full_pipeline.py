@@ -8,7 +8,7 @@ if __name__ == "__main__":
     keyframe_path = 'data/keyframes'
     stylized_keyframe_path = 'data/keyframes_stylized'
     style_img_path = 'data/style.png'
-    video_path = "data/video.mp4"
+    video_path = "data/video.mp4" #path of the video the user would like to stylize
 
     #extract the chosen keyframes from the video
     #REMEMBER: The first and last frame have to be chosen as keyframes to be compatible
@@ -51,7 +51,7 @@ if __name__ == "__main__":
         use_temporal_error_term = False, 
         use_optical_flow = True
     )
-    #run patch match sweep processing
+    #run patch match sweep processing which will allow us to propagate styles from the keyframes, to the other frames
     nnf_list = ia.patch_match_sweep(backward_sweep=False)
     #use NNFs to construct list of stylized frames
     output_list = ia.construct_video(nnf_list)
