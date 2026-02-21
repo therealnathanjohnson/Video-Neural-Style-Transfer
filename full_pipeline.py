@@ -7,6 +7,22 @@ if __name__ == "__main__":
     keyframe_path = 'data/keyframes'
     stylized_keyframe_path = 'data/keyframes_stylized'
     style_img_path = 'data/style.png'
+    video_path = "data\video.mp4"
+
+    #extract the chosen keyframes from the video
+    #REMEMBER: The first and last frame have to be chosen as keyframes to be compatible
+    # with the Video NST function
+    #To select the keyframes, you may need to call display_frames with different configurations
+    # so you can visibily inspect each frame and decide which ones are most important
+    # More information is provided in the `keyframe_selection_utils.py` file
+    store, frame_ids = display_frames(
+        video_path=video_path, 
+        chosen_frames = [0, 5, 10, 15], 
+        use_range=False, 
+        plt_show=False
+    )
+    #save the selected keyframes to a folder
+    save_selected(store, frame_ids, folder_path=keyframe_path)
     
     #loop through all keyframes and run NNST to get stylized keyframes
     for entry in Path(keyframe_path).iterdir():
@@ -28,7 +44,7 @@ if __name__ == "__main__":
     ia = Image_Analogies_Sweeps(
         A_folder = keyframe_path, #folder for keyframes
         A_prime_folder = stylized_keyframe_path, #folder of stylized keyframes
-        video_path = "data/video.mp4", #video to stylize
+        video_path = video_path, #video to stylize
         data_dir_path = "data/output",
         use_edges = False, 
         use_temporal_error_term = False, 
