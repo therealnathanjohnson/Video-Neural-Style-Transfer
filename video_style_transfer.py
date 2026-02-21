@@ -506,7 +506,7 @@ class Image_Analogies_Sweeps:
 
     def random_init_nnf(self, pyr_layer):
         """
-        randomly initialize a neural neighbour field (NNF)
+        randomly initialize a nearest neighbour field (NNF)
 
         Parameters:
             pyr_layer: current gaussian level, which determines size of the NNF
@@ -711,7 +711,7 @@ class Image_Analogies_Sweeps:
         Docstring for random_search
 
         Parameters:
-            nnf: neural neighbour field
+            nnf: nearest neighbour field
             current_frame: index of current frame
             b_data: unfolded patches of frame being optimized
             pyr_layer: current gaussian pyramid level
