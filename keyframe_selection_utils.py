@@ -87,9 +87,11 @@ if __name__ == "__main__":
     #Regardless, once frames have been selected, `save_selected` must be used and the frames must be stored in a folder so later programs
     # can access them
 
+    #REMEMBER: for our video NST algorithm, the first and last frames must be used
+
     store, frame_ids = display_frames(
         video_path="data\video.mp4", 
-        chosen_frames = [5, 10, 15], 
+        chosen_frames = [0, 5, 10, 15], 
         use_range=True, 
         plt_show=True
     )
