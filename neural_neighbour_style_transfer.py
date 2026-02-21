@@ -101,8 +101,7 @@ class NNST:
             betas=(0.9, 0.999)
         )
 
-        print(self.p_base_img.shape, self.p_style_img.shape)
-        #assert 1 == 2
+        #print(self.p_base_img.shape, self.p_style_img.shape)
         self.targets = self.get_target_representation()
 
     def feature_extractor(self, x):
@@ -256,7 +255,7 @@ class NNST:
             loss.backward()
             self.optimizer.step()
 
-            print(step, loss.item())
+            #print(step, loss.item())
             #display image if necessary
             if verbose and step%50 == 0:
                 recon_img = self.get_img_from_laplace_pyr(self.comb_img)
@@ -303,7 +302,7 @@ def complete_process(
     ):
     #run nnst at all scales
     for scale in scales:
-        print("----------------------- ", scale)
+        #print("----------------------- ", scale)
         nnst = NNST(
             base_img_path = base_img_path,
             style_img_path = style_img_path,
