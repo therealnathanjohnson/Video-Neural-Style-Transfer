@@ -298,7 +298,8 @@ def complete_process(
         alpha=0.5, 
         lossless=False, 
         scales = [1/8, 1/4, 1/2, 1/1],
-        prev_out = None
+        prev_out = None,
+        reduce_memory_at_full_scale=False
     ):
     #run nnst at all scales
     for scale in scales:
@@ -308,7 +309,8 @@ def complete_process(
             style_img_path = style_img_path,
             scale=scale,
             previous_output = prev_out,
-            alpha = alpha
+            alpha = alpha,
+            reduce_memory_at_full_scale=reduce_memory_at_full_scale
         )
         nnst.optimize(steps = 200)
         save_reconstruction(nnst, final_path, lossless=lossless)
