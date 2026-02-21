@@ -8,7 +8,7 @@ if __name__ == "__main__":
     keyframe_path = 'data/keyframes'
     stylized_keyframe_path = 'data/keyframes_stylized'
     style_img_path = 'data/style.png'
-    video_path = "data\video.mp4"
+    video_path = "data/video.mp4"
 
     #extract the chosen keyframes from the video
     #REMEMBER: The first and last frame have to be chosen as keyframes to be compatible
