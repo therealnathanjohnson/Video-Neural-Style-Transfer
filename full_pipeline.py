@@ -1,6 +1,6 @@
 from pathlib import Path
 from keyframe_selection_utils import display_frames, save_selected
-from nearest_neighbour_style_transfer import complete_process
+from neural_neighbour_style_transfer import complete_process
 from video_style_transfer import Image_Analogies_Sweeps
 
 if __name__ == "__main__":
