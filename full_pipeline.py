@@ -5,8 +5,20 @@ from video_style_transfer import Image_Analogies_Sweeps
 
 if __name__ == "__main__":
 
-    keyframe_path = 'data/keyframes'
-    stylized_keyframe_path = 'data/keyframes_stylized'
+    keyframe_path = Path('data/keyframes')
+    stylized_keyframe_path = Path('data/keyframes_stylized')
+    output_path = Path('data/output')
+
+    #create folders if they don't exist
+    keyframe_path.mkdir(parents=True, exist_ok=True)
+    stylized_keyframe_path.mkdir(parents=True, exist_ok=True)
+    output_path.mkdir(parents=True, exist_ok=True)
+
+    #convert back to strings
+    keyframe_path = str(keyframe_path)
+    stylized_keyframe_path = str(stylized_keyframe_path)
+    output_path = str(output_path)
+    
     style_img_path = 'data/style.png'
     video_path = "data/video.mp4" #path of the video the user would like to stylize
 
@@ -18,9 +30,10 @@ if __name__ == "__main__":
     # More information is provided in the `keyframe_selection_utils.py` file
     store, frame_ids = display_frames(
         video_path=video_path, 
-        chosen_frames = [0, 5, 10, 15], 
+        chosen_frames = [0, 19, 46, 84], 
         use_range=False, 
-        plt_show=False
+        plt_show=False,
+        
     )
     #save the selected keyframes to a folder
     save_selected(store, frame_ids, folder_path=keyframe_path)
@@ -46,7 +59,7 @@ if __name__ == "__main__":
         A_folder = keyframe_path, #folder for keyframes
         A_prime_folder = stylized_keyframe_path, #folder of stylized keyframes
         video_path = video_path, #video to stylize
-        data_dir_path = "data/output",
+        data_dir_path = output_path,
         use_edges = False, 
         use_temporal_error_term = False, 
         use_optical_flow = True
