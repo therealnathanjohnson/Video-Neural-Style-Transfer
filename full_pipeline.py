@@ -32,8 +32,7 @@ if __name__ == "__main__":
         video_path=video_path, 
         chosen_frames = [0, 19, 46, 84], 
         use_range=False, 
-        plt_show=False,
-        
+        plt_show=False
     )
     #save the selected keyframes to a folder
     save_selected(store, frame_ids, folder_path=keyframe_path)
