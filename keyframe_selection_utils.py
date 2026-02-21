@@ -92,7 +92,7 @@ if __name__ == "__main__":
     store, frame_ids = display_frames(
         video_path="data\video.mp4", 
         chosen_frames = [0, 5, 10, 15], 
-        use_range=True, 
+        use_range=False, 
         plt_show=True
     )
 
