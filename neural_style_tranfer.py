@@ -17,8 +17,8 @@ import time
 class NST:
     def __init__(
         self,
-        base_img_path = "imgs/lion.jpg",
-        style_img_path = "imgs/picasso.jpg"
+        base_img_path,
+        style_img_path
     ):
         weights = models.VGG19_Weights.DEFAULT
         self.vgg19 = models.vgg19(weights=weights).features
@@ -179,8 +179,8 @@ class NST:
 
 if __name__ == "__main__":
     start = time.time()
-    nst = NST(base_img_path = "imgs/simba.jpg",
-            style_img_path = "imgs/italian_rennaissance.jpg")
+    nst = NST(base_img_path = "data/simba.jpg",
+            style_img_path = "data/style.png")
     nst.train()
     end = time.time()
     print(end-start, "seconds") #runtime in seconds
