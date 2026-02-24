@@ -9,21 +9,12 @@ import torch.nn.functional as F
 import torchvision.transforms as T
 
 import matplotlib.pyplot as plt
-from scipy.optimize import minimize
-
 import time
-
-from scipy.ndimage import zoom
-
 import cv2
-from matplotlib import pyplot as plt
 import numpy as np
 from PIL import Image
-
 import random
-
 import imageio
-
 from pathlib import Path
 
 
