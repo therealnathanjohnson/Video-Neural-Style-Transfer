@@ -184,3 +184,10 @@ if __name__ == "__main__":
     nst.train()
     end = time.time()
     print(end-start, "seconds") #runtime in seconds
+
+    #display combination image
+    img = nst.comb_img_params['comb_img'].detach().clone().reshape(3,224,224) #C,H,W -> H,W,C
+    img = nst.deprocess_image(img).permute(1, 2, 0)
+    plt.imshow(img)
+    plt.axis("off")
+    plt.show()
