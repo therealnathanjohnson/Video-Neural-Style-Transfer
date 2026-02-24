@@ -7,6 +7,8 @@ import numpy as np
 from PIL import Image
 import time
 
+import argparse
+
 def display_frames(
     video_path,
     chosen_frames = [],
@@ -89,11 +91,33 @@ if __name__ == "__main__":
 
     #REMEMBER: for our video NST algorithm, the first and last frames must be used
 
+    #get command line arguments
+    parser = argparse.ArgumentParser(description="Video Neural Style Transfer Pipeline")
+
+    parser.add_argument("--video", type=str, default="data/video.mp4",
+                        help="Path to input video which must be stylized")
+    
+    parser.add_argument("--keyframes_dir", type=str, default="data/keyframes",
+                        help="Directory to store extracted keyframes")
+
+    #with `action="store_true"`, use_range will be false unless this option is used
+    parser.add_argument("--use_range", action="store_true",
+                    help="include complete range of chosen keyframes (first to last)")
+    
+    parser.add_argument("--no_plt_show", action="store_true",
+                        help="Don't display images")
+
+    #list chosen keyframe numbers
+    parser.add_argument("--chosen_keyframes", type=int, nargs="+", required=True,
+                    help="List of keyframe indices (e.g. --frames 0 19 46 84)")
+    
+    args = parser.parse_args()
+
     store, frame_ids = display_frames(
-        video_path="data\video.mp4", 
-        chosen_frames = [0, 5, 10, 15], 
-        use_range=False, 
-        plt_show=True
+        video_path=args.video, 
+        chosen_frames = args.chosen_keyframes, 
+        use_range=args.use_range, 
+        plt_show=not args.no_plt_show
     )
 
-    save_selected(store, frame_ids, folder_path="data/keyframes")
+    save_selected(store, frame_ids, folder_path=args.keyframes_dir)
