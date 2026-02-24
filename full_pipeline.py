@@ -105,7 +105,7 @@ if __name__ == "__main__":
         data_dir_path = output_path,
         use_edges = args.use_edges, 
         use_temporal_error_term = args.use_temporal_error_term, 
-        use_optical_flow = not args.use_optical_flow
+        use_optical_flow = not args.no_optical_flow
     )
     #run patch match sweep processing which will allow us to propagate styles from the keyframes, to the other frames
     nnf_list = ia.patch_match_sweep(backward_sweep=args.backward_sweep)
