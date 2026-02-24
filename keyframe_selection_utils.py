@@ -92,7 +92,7 @@ if __name__ == "__main__":
     #REMEMBER: for our video NST algorithm, the first and last frames must be used
 
     #get command line arguments
-    parser = argparse.ArgumentParser(description="Video Neural Style Transfer Pipeline")
+    parser = argparse.ArgumentParser(description="Keyframe Selection")
 
     parser.add_argument("--video", type=str, default="data/video.mp4",
                         help="Path to input video which must be stylized")
