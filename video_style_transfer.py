@@ -17,6 +17,7 @@ import random
 import imageio
 from pathlib import Path
 
+import argparse
 
 class Image_Analogies_Sweeps:
     def __init__(
@@ -1040,18 +1041,51 @@ class Image_Analogies_Sweeps:
         return output
     
 if __name__ == "__main__":
+    #get command line arguments
+    parser = argparse.ArgumentParser(description="Video Neural Style Transfer")
+
+    parser.add_argument("--video", type=str, default="data/video.mp4",
+                        help="Path to input video which must be stylized")
+    
+    parser.add_argument("--keyframes_dir", type=str, default="data/keyframes",
+                        help="Directory to store extracted keyframes")
+    
+    parser.add_argument("--stylized_keyframes_dir", type=str, default="data/keyframes_stylized",
+                        help="Directory to store stylized keyframes")
+    
+    parser.add_argument("--output_dir", type=str, default="data/output",
+                        help="Directory for final output video")
+
+    #with `action="store_true"`, use_edges will be false unless this option is used
+    parser.add_argument("--use_edges", action="store_true",
+                    help="Use edge features in Image Analogies")
+
+    parser.add_argument("--use_temporal_error_term", action="store_true",
+                        help="Enable temporal consistency penalty")
+    
+    parser.add_argument("--no_optical_flow", action="store_true",
+                        help="Disable optical flow")
+    
+    parser.add_argument("--backward_sweep", action="store_true",
+                        help="Run PatchMatch backward sweep")
+    
+    args = parser.parse_args()
+
+    #create output dir if it doesn't exist
+    Path(args.output_dir).mkdir(parents=True, exist_ok=True)
+
     #create sweeping Image Analogies instance
     ia = Image_Analogies_Sweeps(
-        A_folder = "data/keyframes", #folder for keyframes
-        A_prime_folder = "data/keyframes_stylized", #folder of stylized keyframes
-        video_path = "data/video.mp4", #video to stylize
-        data_dir_path = "data/output",
-        use_edges = False, 
-        use_temporal_error_term = False, 
-        use_optical_flow = False
+        A_folder = args.keyframes_dir, #folder for keyframes
+        A_prime_folder = args.stylized_keyframes_dir, #folder of stylized keyframes
+        video_path = args.video, #video to stylize
+        data_dir_path = args.output_dir,
+        use_edges = args.use_edges, 
+        use_temporal_error_term = args.use_temporal_error_term, 
+        use_optical_flow = not args.no_optical_flow
     )
     #run patch match sweep processing
-    nnf_list = ia.patch_match_sweep(backward_sweep=False)
+    nnf_list = ia.patch_match_sweep(backward_sweep=args.backward_sweep)
     #use NNFs to construct list of stylized frames
     output_list = ia.construct_video(nnf_list)
     #save stylized frames as video
