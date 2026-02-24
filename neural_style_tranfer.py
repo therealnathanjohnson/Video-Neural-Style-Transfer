@@ -13,6 +13,7 @@ import numpy as np
 
 import time
 
+import argparse
 
 class NST:
     def __init__(
@@ -178,9 +179,20 @@ class NST:
 
 
 if __name__ == "__main__":
+    #get command line arguments
+    parser = argparse.ArgumentParser(description="Neural Style Transfer")
+
+    parser.add_argument("--content", type=str, default="data/simba.jpg",
+                        help="Path to content image")
+    
+    parser.add_argument("--style", type=str, default="data/style.png",
+                        help="Path to style image")
+    
+    args = parser.parse_args()
+    
     start = time.time()
-    nst = NST(base_img_path = "data/simba.jpg",
-            style_img_path = "data/style.png")
+    nst = NST(base_img_path = args.content,
+            style_img_path = args.style)
     nst.train()
     end = time.time()
     print(end-start, "seconds") #runtime in seconds
