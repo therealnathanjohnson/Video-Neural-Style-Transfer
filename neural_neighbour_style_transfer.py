@@ -18,6 +18,8 @@ import torchvision.transforms as T
 
 from pathlib import Path
 
+import argparse
+
 class NNST:
     def __init__(
         self,
@@ -320,10 +322,24 @@ def complete_process(
 
 
 if __name__ == '__main__':
-    base_img_path = 'base_img.png'
-    style_img_path = 'style_img.png'
-    final_path = 'final_img.png'
-    complete_process(base_img_path, style_img_path, final_path, alpha=0.5, lossless=False)
+    #get command line arguments
+    parser = argparse.ArgumentParser(description="Neural Neighbour Style Transfer")
+
+    parser.add_argument("--content", type=str, default="data/simba.jpg",
+                        help="Path to content image")
+    
+    parser.add_argument("--style", type=str, default="data/style.png",
+                        help="Path to style image")
+
+    parser.add_argument("--output", type=str, default="data/final.png",
+                        help="Path to final output")
+
+    parser.add_argument("--alpha", type=float, default=0.5,
+                        help="Stylization strength")
+    
+    args = parser.parse_args()
+
+    complete_process(args.content, args.style, args.output, alpha=args.alpha, lossless=False)
 
     #if the gpu runs out of memory when running NNST on the full-scale image, try the following:
     #> complete_process(base_img_path, style_img_path, final_path, alpha=0.5, lossless=False, reduce_memory_at_full_scale=True)
