@@ -284,6 +284,14 @@ class Image_Analogies_Sweeps:
             #OpenCV reads in BGR, convert to RGB for matplotlib
             frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
 
+            #get smallest dim
+            min_dim = min(frame_rgb.shape[0], frame_rgb.shape[1])
+            #if the min_dim is greater than 480, we set resize_scale to resize to 480
+            if min_dim > 480:
+                resize_scale = 480/min_dim
+            else:
+                resize_scale = None
+
             #resize if necessary
             if resize_scale!=None:
               frame_rgb = cv2.resize(
