@@ -21,8 +21,12 @@ class NST:
         base_img_path,
         style_img_path
     ):
+        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        
         weights = models.VGG19_Weights.DEFAULT
         self.vgg19 = models.vgg19(weights=weights).features
+        self.vgg19 = self.vgg19.to(self.device)
+
         #get necessary preprocessing function for vgg19
         self.preprocess = weights.transforms()
 
@@ -32,11 +36,11 @@ class NST:
         
         #decode and preprocess content image
         self.base_img = decode_image(base_img_path)
-        self.p_base_img = self.preprocess(self.base_img).unsqueeze(0)
+        self.p_base_img = self.preprocess(self.base_img).unsqueeze(0).to(self.device).contiguous()
         
         #decode and preprocess style image
         self.style_img = decode_image(style_img_path)
-        self.p_style_img = self.preprocess(self.style_img).unsqueeze(0)
+        self.p_style_img = self.preprocess(self.style_img).unsqueeze(0).to(self.device).contiguous()
         
         #combination image that we optimize
         self.comb_img_params = nn.ParameterDict({
@@ -137,7 +141,7 @@ class NST:
         #extract features
         features = self.feature_extractor(comb_img)
 
-        loss = torch.tensor(0.0)
+        loss = torch.tensor(0.0, device=self.device)
 
         #compute content loss
         comb_img_features = features[self.content_loss_layer]
