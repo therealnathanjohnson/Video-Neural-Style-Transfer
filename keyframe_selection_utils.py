@@ -108,7 +108,7 @@ if __name__ == "__main__":
                         help="Don't display images")
 
     #list chosen keyframe numbers. `nargs='*'` so we can accept an empty list
-    parser.add_argument("--chosen_keyframes", type=int, nargs="*",
+    parser.add_argument("--chosen_keyframes", type=int, nargs="*", default=[],
                     help="List of keyframe indices (e.g. --frames 0 19 46 84)")
     
     args = parser.parse_args()
