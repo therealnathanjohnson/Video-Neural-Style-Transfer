@@ -339,7 +339,14 @@ if __name__ == '__main__':
     
     args = parser.parse_args()
 
-    complete_process(args.content, args.style, args.output, alpha=args.alpha, lossless=False)
+    complete_process(
+        args.content, 
+        args.style, 
+        args.output, 
+        alpha=args.alpha, 
+        lossless=False,
+        reduce_memory_at_full_scale=True
+    )
 
     #if the gpu runs out of memory when running NNST on the full-scale image, try the following:
     #> complete_process(base_img_path, style_img_path, final_path, alpha=0.5, lossless=False, reduce_memory_at_full_scale=True)
