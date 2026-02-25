@@ -54,9 +54,27 @@ class NNST:
 
         #read content image
         self.base_img = decode_image(base_img_path)
+
         #if content image has 4 channels (RGBA), get rid of last channel (alpha channel)
         if self.base_img.shape[0] == 4:
             self.base_img = self.base_img[:3]
+
+        #reshape to 480p
+        _, h, w = self.base_img.shape
+        min_dim = min(h, w)
+        if min_dim > 480:
+            resize_scale = 480/min_dim
+            new_h = int(round(h*resize_scale))
+            new_w = int(round(w*resize_scale))
+            
+            self.base_img = F.interpolate(
+                self.base_img.unsqueeze(0),
+                size=(new_h, new_w),
+                mode='bilinear',
+                align_corners=False,
+                antialias=True
+            ).squeeze(0)
+        
         #preprocess content image
         self.p_base_img = self.preprocess(self.base_img).unsqueeze(0).to(self.device)
         _, _, self.base_height, self.base_width = self.p_base_img.shape
