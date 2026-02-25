@@ -105,8 +105,8 @@ if __name__ == "__main__":
     parser.add_argument("--use_range", action="store_true",
                     help="include complete range of chosen keyframes (first to last)")
     
-    parser.add_argument("--no_plt_show", action="store_true",
-                        help="Don't display images")
+    parser.add_argument("--plt_show", action="store_true",
+                        help="display images")
 
     #list chosen keyframe numbers. `nargs='*'` so we can accept an empty list
     parser.add_argument("--chosen_keyframes", type=int, nargs="*", default=[],
@@ -121,7 +121,7 @@ if __name__ == "__main__":
         video_path=args.video, 
         chosen_frames = args.chosen_keyframes, 
         use_range=args.use_range, 
-        plt_show=not args.no_plt_show
+        plt_show=args.plt_show
     )
 
     save_selected(store, frame_ids, folder_path=args.keyframes_dir)
