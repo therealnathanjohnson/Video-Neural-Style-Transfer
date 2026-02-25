@@ -1,12 +1,5 @@
 # Video Neural Style Transfer
 
-The code to carry out the complete Video Style Transfer pipline, including selecting keyframes from a video a user wants to stylize, stylizing keyframes and propagating the styles from the keyframes to rest of the frames, is provided in `full_pipeline.py`. 
-
-Note that when selecting keyframes, a user may want to run `display_frames` multiple times, with different configurations, to visually inspect each indvidual frame, before deciding which ones are most suitable to be keyframes. Further information on this is provided in `keyfame_selection_utils.py`.
-
-Note: It may be necessary to clear the `data\keyframes` and `data\keyframes_stylized` folders if different keyframes are chosen
-
-
 ## Usage
 
 ### First Steps
@@ -50,9 +43,11 @@ $ python keyframe_selection_utils.py \
 
 The latter two options allow you to inspect certain sections of the video without creating an image per frame, which could require large amounts of disk space.
 
+Our Video NST algorithm relies on these keyframes to accurately and confidently style other frames, so it is crucial that the chosen keyframes have a reasonable coverage of the different objects and backgrounds in the video. If an object appears in the frames but not in the keyframes, our algorithm may not be able to style it well.
+
 ### Video Neural Style Transfer Pipeline
 
-This command will transfer the style from `style.png` to the video. The `chosen_keyframes` parameter should be set based on the previous, exploratory step. These should coincide with the most important frames of the video.
+This command will transfer the style from `style.png` to the video. It extracts the `chosen_keyframes` from the video, stylizes then using NNST and propagates the style from the stylized keyframes to the rest of the frames. The `chosen_keyframes` parameter should be set based on the previous, exploratory step. These should coincide with the most important frames of the video.
 
 ```
 $ python full_pipeline.py \
@@ -68,3 +63,33 @@ $ python full_pipeline.py \
 The `--use_edges`, `--use_temporal_error_term`, `--no_optical_flow`, and `--backward_sweep` flags can be employed to use edge gaussian pyramids during PatchMatch, include the temporal error term during PatchMatch, not use optical flows, and include a backward sweep, after the forward sweep, respectively. 
 
 Note: It may be necessary to empty the `keyframes_dir`, `stylized_keyframes_dir` and `output_dir`, before running this command.
+
+### Bonus: Individual Sub-Module Commands
+
+Neural Style Transfer (outputs at 224p, for the sake of speed):
+```
+$ python neural_style_transfer.py \
+  --content "data/simba.jpg" \
+  --style "data/style.png" \
+  --output "data/output.png"
+```
+<i> Note: The above is NOT used in our video style transfer pipeline </i>
+
+Neural Neighbour Style Transfer:
+```
+$ python neural_neighbour_style_transfer.py \
+  --content "data/simba.jpg" \
+  --style "data/style.png" \
+  --output "data/output.png" \
+  --alpha 0.5
+```
+
+Video Style Transfer (requires pre-populated `keyframes` and `stylized_keyframes` folders):
+```
+$ python video_style_transfer.py \
+  --video "data/video.mp4" \
+  --keyframes_dir "data/keyframes" \
+  --stylized_keyframes_dir "data/keyframes_stylized" \
+  --output_dir "data/output"
+```
+The `--use_edges`, `--use_temporal_error_term`, `--no_optical_flow`, and `--backward_sweep` flags are available for this command too. 
