@@ -8,6 +8,7 @@ from PIL import Image
 import time
 
 import argparse
+from pathlib import Path
 
 def display_frames(
     video_path,
@@ -112,6 +113,9 @@ if __name__ == "__main__":
                     help="List of keyframe indices (e.g. --frames 0 19 46 84)")
     
     args = parser.parse_args()
+
+    #create folder if it doesn't exist
+    Path(args.keyframes_dir).mkdir(parents=True, exist_ok=True)
 
     store, frame_ids = display_frames(
         video_path=args.video, 
