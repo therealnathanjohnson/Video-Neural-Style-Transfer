@@ -187,6 +187,9 @@ if __name__ == "__main__":
     
     parser.add_argument("--style", type=str, default="data/style.png",
                         help="Path to style image")
+
+    parser.add_argument("--output", type=str, default="data/final.png",
+                        help="Path to final output")
     
     args = parser.parse_args()
     
@@ -200,6 +203,13 @@ if __name__ == "__main__":
     #display combination image
     img = nst.comb_img_params['comb_img'].detach().clone().reshape(3,224,224) #C,H,W -> H,W,C
     img = nst.deprocess_image(img).permute(1, 2, 0)
-    plt.imshow(img)
-    plt.axis("off")
-    plt.show()
+    # plt.imshow(img)
+    # plt.axis("off")
+    # plt.show()
+
+    #convert to numpy
+    img_np = img.detach().cpu().numpy()
+    img_np = (img_np * 255).clip(0, 255).astype(np.uint8)
+    
+    #save image
+    Image.fromarray(img_np).save(args.output)
