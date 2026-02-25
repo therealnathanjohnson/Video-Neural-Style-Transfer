@@ -17,14 +17,14 @@ $ pip install -r requirements.txt
 
 ### Display Frames in a Folder to Decide on Keyframes
 
-Extract all frames from the video and store in a folder so they can be visually inspected
+To extract all frames from the video and store in a folder so they can be visually inspected:
 ```
 $ python keyframe_selection_utils.py \
   --video "data/video.mp4" \
   --keyframes_dir "data/view_frames"
 ```
 
-Extract only certain chosen frames and store in folder (frames 5 and 10, in this case)
+To extract only certain chosen frames and store in folder (frames 5 and 10, in this case):
 ```
 $ python keyframe_selection_utils.py \
   --video "data/video.mp4" \
@@ -32,7 +32,7 @@ $ python keyframe_selection_utils.py \
   --chosen_keyframes 5 10
 ```
 
-Extract all frames within the min and max chosen keyframes (frames 5 to 15, in this case)
+To extract all frames within the min and max chosen keyframes (frames 5 to 15, in this case):
 ```
 $ python keyframe_selection_utils.py \
   --video "data/video.mp4" \
