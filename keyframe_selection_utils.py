@@ -35,6 +35,23 @@ def display_frames(
 
         # OpenCV reads in BGR, convert to RGB for matplotlib
         frame_rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        
+        #get smallest dim
+        min_dim = min(frame_rgb.shape[0], frame_rgb.shape[1])
+        #if the min_dim is greater than 480, we set resize scale
+        if min_dim > 480:
+            resize_scale = 480/min_dim
+        else:
+            resize_scale = None
+        #resize if necessary
+        if resize_scale!=None:
+            frame_rgb = cv2.resize(
+              frame_rgb,
+              None,
+              fx=resize_scale,
+              fy=resize_scale,
+              interpolation=cv2.INTER_AREA
+            )
 
         #if chosen_frames have been provided, we check if the frame is in chosen_frames before showing
         #if chosen_frames have been provided, but use_range is chosen, we check if the frame is in the range of chosen_frames
