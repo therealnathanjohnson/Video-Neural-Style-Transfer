@@ -93,3 +93,27 @@ $ python video_style_transfer.py \
   --output_dir "data/output"
 ```
 The `--use_edges`, `--use_temporal_error_term`, `--no_optical_flow`, and `--backward_sweep` flags are available for this command too. 
+
+### Notes
+
+I have used an Nvidia T4 GPU, which includs 16Gb of VRAM. T4 GPUs are available on Google Colab. The above commands can be run like so, for example:
+
+```
+!git clone https://github.com/therealnathanjohnson/Video-Neural-Style-Transfer.git
+
+%cd Video-Neural-Style-Transfer
+
+!pip install -r requirements.txt
+
+from google.colab import drive
+drive.mount('/content/drive')
+
+!python full_pipeline.py \
+--video "data/ice_age_dodo_clip.mp4" \
+--style "data/style.png" \
+--keyframes_dir "/content/drive/MyDrive/my_keyframes" \
+--stylized_keyframes_dir "/content/drive/MyDrive/my_keyframes_stylized" \
+--output_dir "/content/drive/MyDrive/output" \
+--alpha 0.5 \
+--chosen_keyframes 0 33 50 93
+```
